@@ -49,6 +49,7 @@ if(HMM_BUILD_TESTS)
         enable_testing()
         add_executable(hawkes_market_making_tests
             tests/unit/test_basic.cpp
+            tests/unit/test_lobster_parser.cpp
         )
         target_include_directories(hawkes_market_making_tests
             PRIVATE
