@@ -48,16 +48,16 @@ namespace hawkes_market_making::market_making
         // intermediate ratio. For larger x, use c1 = log(1 + x) / gamma.
         const Decimal scaled_log = ratio == 0.0 ? 1.0 : log_one_plus_ratio / ratio;
         c1_ = ratio <= 1.0 ? scaled_log / kappa : log_one_plus_ratio / gamma;
-        
+
         if (gamma > 0.0 && sigma > 0.0)
         {
             // c2 = sigma * sqrt(gamma / (2 * kappa * A) * (1 + x)^(1 + 1/x)).
             // In log space the power contributes log(1 + x) + scaled_log.
             // This avoids forming sigma squared, the product in the denominator,
             // or 1/x, each of which can exceed the numeric range on its own.
-            const Decimal log_inventory_factor =
-                std::log(gamma) - std::log(2.0) - std::log(kappa) - std::log(arrival_rate)
-                + log_one_plus_ratio + scaled_log;
+            const Decimal log_inventory_factor = std::log(gamma) - std::log(2.0) - std::log(kappa) -
+                                                 std::log(arrival_rate) + log_one_plus_ratio +
+                                                 scaled_log;
             c2_ = std::exp(std::log(sigma) + 0.5 * log_inventory_factor);
         }
 

@@ -24,10 +24,10 @@ namespace hawkes_market_making::market_making
      */
     struct GLFTParameters
     {
-        Decimal risk_aversion = 0.01;   ///< Gamma, in inverse price units.
+        Decimal risk_aversion = 0.01;  ///< Gamma, in inverse price units.
         Decimal fill_rate_decay = 0.3; ///< Kappa, in inverse price units.
         Decimal fill_rate_scale = 0.9; ///< A, arrival rate at zero depth, per unit of time.
-        Decimal volatility = 0.4;     ///< Sigma, in price units per square root of time.
+        Decimal volatility = 0.4;      ///< Sigma, in price units per square root of time.
 
         /**
          * @brief Maximum absolute position in whole inventory units.
@@ -82,10 +82,7 @@ namespace hawkes_market_making::market_making
          * @brief Retrieve the configuration used to construct this strategy.
          * @return A copy of the stored parameters for recording or reproducing a run.
          */
-        GLFTParameters parameters() const noexcept
-        {
-            return parameters_;
-        }
+        GLFTParameters parameters() const noexcept { return parameters_; }
 
         /**
          * @brief Generate a stationary GLFT quote for the supplied mid-price and inventory.
@@ -107,7 +104,7 @@ namespace hawkes_market_making::market_making
 
       private:
         GLFTParameters parameters_; ///< Configuration used to compute the coefficients.
-        Decimal c1_ = 0.0; ///< Inventory-independent term in each quote depth.
-        Decimal c2_ = 0.0; ///< Change in depth per unit of inventory.
+        Decimal c1_ = 0.0;          ///< Inventory-independent term in each quote depth.
+        Decimal c2_ = 0.0;          ///< Change in depth per unit of inventory.
     };
 } // namespace hawkes_market_making::market_making
