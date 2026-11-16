@@ -22,8 +22,6 @@ add_library(hawkes_market_making
     src/hawkes/hawkes_process.cpp
     src/hawkes/ogata_simulator.cpp
     src/hawkes/likelihood.cpp
-    src/hawkes/mle.cpp
-    src/hawkes/diagnostics.cpp
     src/control/grid.cpp
     src/control/interpolation.cpp
     src/control/hjb_solver.cpp
@@ -50,6 +48,7 @@ if(HMM_BUILD_TESTS)
         add_executable(hawkes_market_making_tests
             tests/unit/test_basic.cpp
             tests/unit/test_lobster_parser.cpp
+            tests/unit/test_book_reconstructor.cpp
         )
         target_include_directories(hawkes_market_making_tests
             PRIVATE
