@@ -48,6 +48,7 @@ if(HMM_BUILD_TESTS)
     if(GTest_FOUND)
         enable_testing()
         add_executable(hawkes_market_making_tests
+            tests/unit/test_glft.cpp
             tests/unit/test_basic.cpp
         )
         target_include_directories(hawkes_market_making_tests
