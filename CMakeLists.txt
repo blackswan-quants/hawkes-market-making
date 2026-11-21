@@ -13,7 +13,6 @@ find_package(Eigen3 REQUIRED NO_MODULE)
 option(HMM_BUILD_TESTS "Build tests" ON)
 
 add_library(hawkes_market_making
-    src/main.cpp
     src/data/lobster_parser.cpp
     src/data/book_reconstructor.cpp
     src/market_making/avellaneda_stoikov.cpp
@@ -41,15 +40,23 @@ target_link_libraries(hawkes_market_making
 
 target_compile_features(hawkes_market_making PUBLIC cxx_std_17)
 
+# Warnings stay on for our own code; narrowing and sign mismatches are the ones that
+# usually hide numerical bugs.
+set(HMM_WARNING_FLAGS -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion)
+target_compile_options(hawkes_market_making PRIVATE ${HMM_WARNING_FLAGS})
+
 if(HMM_BUILD_TESTS)
     find_package(GTest QUIET)
     if(GTest_FOUND)
         enable_testing()
         add_executable(hawkes_market_making_tests
+            tests/unit/test_glft.cpp
             tests/unit/test_basic.cpp
             tests/unit/test_lobster_parser.cpp
             tests/unit/test_book_reconstructor.cpp
+            tests/unit/test_avellaneda_stoikov.cpp
         )
+        target_compile_options(hawkes_market_making_tests PRIVATE ${HMM_WARNING_FLAGS})
         target_include_directories(hawkes_market_making_tests
             PRIVATE
                 ${CMAKE_CURRENT_SOURCE_DIR}/include
