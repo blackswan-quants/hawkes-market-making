@@ -52,6 +52,8 @@ if(HMM_BUILD_TESTS)
         add_executable(hawkes_market_making_tests
             tests/unit/test_glft.cpp
             tests/unit/test_basic.cpp
+            tests/unit/test_lobster_parser.cpp
+            tests/unit/test_book_reconstructor.cpp
             tests/unit/test_avellaneda_stoikov.cpp
         )
         target_compile_options(hawkes_market_making_tests PRIVATE ${HMM_WARNING_FLAGS})
